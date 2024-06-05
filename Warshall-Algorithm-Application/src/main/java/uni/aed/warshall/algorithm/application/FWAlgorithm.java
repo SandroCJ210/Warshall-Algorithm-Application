@@ -13,10 +13,13 @@ public class FWAlgorithm {
     public int V;
     public int[][] routes;
     public int[][] dist;
-
+    
+    //Constructor
     public FWAlgorithm(int nodes){
         V = nodes;
     }
+    
+    //Algoritmo Floyd-Warshall
     public void Solve(int graph[][]) {
         dist = new int[V][V];
         routes = new int[V][V];
@@ -42,7 +45,8 @@ public class FWAlgorithm {
         // Imprimir la matriz de distancias
         PrintSolution(dist);
     }
-
+    
+    //Imprime la matriz solucion
     public void PrintSolution(int dist[][]) {
         System.out.println("La matriz de distancias más cortas entre cada par de vértices es:");
         for (int i = 0; i < V; i++) {
@@ -56,6 +60,7 @@ public class FWAlgorithm {
         }
     }
     
+    //Imprime los nodos conectados
     public void PrintNodes(int graph[][]){
         for(int i=0; i < V; i++){
             for(int j=0; j < V; j++){
@@ -65,6 +70,7 @@ public class FWAlgorithm {
         }
     }
     
+    //Imprime la matriz de rutas
     public void PrintRoutesMatrix(){
         System.out.println("Matriz de rutas:");
         for(int i=0; i < V; i++){

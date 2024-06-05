@@ -14,6 +14,7 @@ public class WarshallAlgorithmApplication {
     public static void main(String[] args) {
         FWAlgorithm FWA = new FWAlgorithm(5);
         
+        //Grafos de prueba
         int graph1[][] = { {0, 5, INF, 10},
                           {INF, 0, 3, INF},
                           {INF, INF, 0, 1},
