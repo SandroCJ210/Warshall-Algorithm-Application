@@ -86,22 +86,22 @@ public class Vertex<T extends Comparable<T>> implements Comparable<Vertex<T>>  {
         if (!weightEquals)
             return false;
 
-        final boolean edgesSizeEquals = this.edges.size() == v.edges.size();
+        /*final boolean edgesSizeEquals = this.edges.size() == v.edges.size();
         if (!edgesSizeEquals)
-            return false;
+            return false;*/
 
         final boolean valuesEquals = this.value.equals(v.value);
         if (!valuesEquals)
             return false;
 
-        final Iterator<Edge<T>> iter1 = this.edges.iterator();
+        /*final Iterator<Edge<T>> iter1 = this.edges.iterator();
         final Iterator<Edge<T>> iter2 = v.edges.iterator();
         while (iter1.hasNext() && iter2.hasNext()) {            
             final Edge<T> e1 = iter1.next();
             final Edge<T> e2 = iter2.next();
             if (e1.cost != e2.cost)             // solo verifica el costo
                 return false;
-        }
+        }*/
 
         return true;
     }

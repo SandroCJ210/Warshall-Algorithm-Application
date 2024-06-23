@@ -20,7 +20,7 @@ public class FWAlgorithm {
     }
     
     //Algoritmo Floyd-Warshall
-    public void Solve(int graph[][]) {
+    public int[][] Solve(int graph[][]) {
         dist = new int[V][V];
         routes = new int[V][V];
         int i, j, k;
@@ -44,6 +44,7 @@ public class FWAlgorithm {
 
         // Imprimir la matriz de distancias
         PrintSolution(dist);
+        return dist;
     }
     
     //Imprime la matriz solucion

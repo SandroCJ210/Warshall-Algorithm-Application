@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import uni.aed.graphs.Edge;
+import uni.aed.graphs.Graph;
 import uni.aed.graphs.Vertex;
 
 /**
@@ -18,7 +19,8 @@ public class GUI extends javax.swing.JFrame {
     
     List<Vertex<Integer>> vertices = new ArrayList<>();
     List<Edge<Integer>> edges = new ArrayList<>();
-    
+    int[][] matrix;
+            
     public GUI() {
         initComponents();
     }
@@ -48,11 +50,13 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         EdgesRepresentation = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
-        PathsRepresentation = new javax.swing.JTextArea();
+        WarshallRepresentation = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         AdyacencyMatrixRepresentation = new javax.swing.JTextArea();
         AdyacencyButton = new javax.swing.JButton();
         PathsButton = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        PathsRepresentation = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -116,10 +120,10 @@ public class GUI extends javax.swing.JFrame {
         EdgesRepresentation.setRows(5);
         jScrollPane2.setViewportView(EdgesRepresentation);
 
-        PathsRepresentation.setEditable(false);
-        PathsRepresentation.setColumns(20);
-        PathsRepresentation.setRows(5);
-        jScrollPane3.setViewportView(PathsRepresentation);
+        WarshallRepresentation.setEditable(false);
+        WarshallRepresentation.setColumns(20);
+        WarshallRepresentation.setRows(5);
+        jScrollPane3.setViewportView(WarshallRepresentation);
 
         AdyacencyMatrixRepresentation.setEditable(false);
         AdyacencyMatrixRepresentation.setColumns(20);
@@ -136,15 +140,24 @@ public class GUI extends javax.swing.JFrame {
 
         PathsButton.setText("M. Rutas");
         PathsButton.setFocusPainted(false);
+        PathsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PathsButtonActionPerformed(evt);
+            }
+        });
+
+        PathsRepresentation.setColumns(20);
+        PathsRepresentation.setRows(5);
+        jScrollPane5.setViewportView(PathsRepresentation);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 20, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(AddNodeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NodeInput, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,61 +181,69 @@ public class GUI extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(AdyacencyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(PathsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(27, 27, 27))
+                            .addComponent(PathsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(15, 15, 15)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(100, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NodeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AdyacencyButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddNodeButton)
+                    .addComponent(PathsButton))
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane4)
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(NodeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AdyacencyButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(AddNodeButton)
-                            .addComponent(PathsButton))
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(OriginNodeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addComponent(OriginNodeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DestinyNodeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(WeightEdgeInput, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(AddEdgeButton)))
-                .addGap(52, 52, 52))
+                        .addComponent(WeightEdgeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(AddEdgeButton)
+                .addGap(95, 95, 95))
         );
 
         pack();
@@ -239,10 +260,17 @@ public class GUI extends javax.swing.JFrame {
             int cost = Integer.parseInt(WeightEdgeInput.getText());
             Vertex<Integer> vertex1 = new Vertex<>(node1Value);
             Vertex<Integer> vertex2 = new Vertex<>(node2Value);
+            System.out.println(vertices.contains(vertex1));
+            System.out.println(vertices.contains(vertex2));
             if(vertices.contains(vertex1) && vertices.contains(vertex2)){
-                Edge<Integer> edge = new Edge<>(cost, vertex1, vertex2);
+                
+                Vertex<Integer> v1 = vertices.get(vertices.indexOf(vertex1));
+                Vertex<Integer> v2 = vertices.get(vertices.indexOf(vertex2));
+                
+                Edge<Integer> edge = new Edge<>(cost, v1, v2);
                 if(!edges.contains(edge)){
                     edges.add(edge);
+                    v1.addEdge(edge);
                     EdgesRepresentation.setText(edges.toString());
                     System.out.println(edges.toString());
                 }else{
@@ -288,14 +316,71 @@ public class GUI extends javax.swing.JFrame {
     private void AdyacencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdyacencyButtonActionPerformed
         int dimension = vertices.size();
         FWAlgorithm FWA = new FWAlgorithm(dimension);
-        int[][] matrix = new int[dimension][dimension];
+        matrix = new int[dimension][dimension];
+        //int INF = 9999999;
         
-        for(int i=0; i < edges.size(); i++){
-            Edge edge = edges.get(i);
-            Vertex vertex = edge.getFromVertex();
-            
+        //Rellenando la matriz con infinito y cero en la diagonal por defecto
+        for(int i=0; i < dimension; i++){
+            for(int j=0; j < dimension; j++){
+                if(i==j) matrix[i][j] = 0;
+                else matrix[i][j] = FWAlgorithm.INF;
+            }
         }
+        
+        //Rellenando la matriz con los costos de cada nodo
+        for(int i=0; i < dimension; i++){
+            Vertex<Integer> from = vertices.get(i);
+            for(Edge<Integer> e: from.getEdges()){
+                int j = e.getToVertex().getValue() - 1;
+                matrix[i][j] = e.getCost();
+            }                  
+        }
+        
+        /*for(Edge<Integer> e : edges){
+            System.out.println(e.toString());
+        }*/
+        
+        //Imprimiendo la matriz en consola y en la GUI
+        AdyacencyMatrixRepresentation.setTabSize​(3);
+        for(int i=0; i < dimension; i++){
+            for(int j=0; j < dimension; j++){
+                if(matrix[i][j] == FWAlgorithm.INF){
+                    AdyacencyMatrixRepresentation.append("INF" +"\t");
+                    System.out.print( "INF  "); 
+                }else{
+                    AdyacencyMatrixRepresentation.append(matrix[i][j] + "\t");
+                   System.out.print(matrix[i][j] + "    ");
+                }
+            }
+            AdyacencyMatrixRepresentation.append("\n");
+            System.out.println();
+        }
+        
+        for(Vertex<Integer> v : vertices){
+            System.out.println(v.toString());
+        }
+        
     }//GEN-LAST:event_AdyacencyButtonActionPerformed
+
+    private void PathsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PathsButtonActionPerformed
+        // TODO add your handling code here:
+        int dimension = vertices.size();
+        FWAlgorithm FWA = new FWAlgorithm(dimension);
+        int[][] solutionMatrix = FWA.Solve(matrix);
+        
+        WarshallRepresentation.setTabSize​(3);
+        for(int i=0; i < dimension; i++){
+            for(int j=0; j < dimension; j++){
+                if(solutionMatrix[i][j] == FWAlgorithm.INF){
+                   WarshallRepresentation.append("INF" + "\t");
+                }else{
+                   WarshallRepresentation.append(solutionMatrix[i][j] + "\t");
+                }
+            }
+            WarshallRepresentation.append("\n");
+        }
+        
+    }//GEN-LAST:event_PathsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,6 +404,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField OriginNodeInput;
     private javax.swing.JButton PathsButton;
     private javax.swing.JTextArea PathsRepresentation;
+    private javax.swing.JTextArea WarshallRepresentation;
     private javax.swing.JTextField WeightEdgeInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -329,5 +415,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     // End of variables declaration//GEN-END:variables
 }
