@@ -19,7 +19,7 @@ public class GUI extends javax.swing.JFrame {
     
     List<Vertex<Integer>> vertices = new ArrayList<>();
     List<Edge<Integer>> edges = new ArrayList<>();
-    int[][] matrix;
+    double[][] matrix;
             
     public GUI() {
         initComponents();
@@ -314,7 +314,7 @@ public class GUI extends javax.swing.JFrame {
     private void AdyacencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdyacencyButtonActionPerformed
         int dimension = vertices.size();
         FWAlgorithm FWA = new FWAlgorithm(dimension);
-        matrix = new int[dimension][dimension];
+        matrix = new double[dimension][dimension];
         //int INF = 9999999;
         
         //Rellenando la matriz con infinito y cero en la diagonal por defecto
@@ -346,7 +346,7 @@ public class GUI extends javax.swing.JFrame {
                     AdyacencyMatrixRepresentation.append("INF" +"\t");
                     System.out.print( "INF  "); 
                 }else{
-                    AdyacencyMatrixRepresentation.append(matrix[i][j] + "\t");
+                    AdyacencyMatrixRepresentation.append((int)matrix[i][j] + "\t");
                    System.out.print(matrix[i][j] + "    ");
                 }
             }
@@ -364,7 +364,7 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         int dimension = vertices.size();
         FWAlgorithm FWA = new FWAlgorithm(dimension);
-        int[][] solutionMatrix = FWA.Solve(matrix);
+        double[][] solutionMatrix = FWA.Solve(matrix);
         
         WarshallRepresentation.setTabSize​(3);
         for(int i=0; i < dimension; i++){
@@ -372,7 +372,7 @@ public class GUI extends javax.swing.JFrame {
                 if(solutionMatrix[i][j] == FWAlgorithm.INF){
                    WarshallRepresentation.append("INF" + "\t");
                 }else{
-                   WarshallRepresentation.append(solutionMatrix[i][j] + "\t");
+                   WarshallRepresentation.append((int)solutionMatrix[i][j] + "\t");
                 }
             }
             WarshallRepresentation.append("\n");

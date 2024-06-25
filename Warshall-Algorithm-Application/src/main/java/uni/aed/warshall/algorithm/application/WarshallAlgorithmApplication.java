@@ -15,17 +15,17 @@ public class WarshallAlgorithmApplication {
         FWAlgorithm FWA = new FWAlgorithm(5);
         
         //Grafos de prueba
-        int graph1[][] = { {0, 5, INF, 10},
+        double graph1[][] = { {0, 5, INF, 10},
                           {INF, 0, 3, INF},
                           {INF, INF, 0, 1},
                           {INF, INF, INF, 0}
                         };
-        int graph2[][] = { {0, 3, INF, 7},
+        double graph2[][] = { {0, 3, INF, 7},
                           {8, 0, 2, INF},
                           {5, INF, 0, 1},
                           {2, INF, INF, 0}
                         };
-        int graph3[][] = { {0, 2, INF, -4, INF},
+        double graph3[][] = { {0, 2, INF, -4, INF},
                           {INF, 0, -2, 1, 3},
                           {INF, INF, 0, INF, 1},
                           {INF, INF, INF, 0, 4},
