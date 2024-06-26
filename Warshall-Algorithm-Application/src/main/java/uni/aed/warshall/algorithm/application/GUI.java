@@ -339,15 +339,18 @@ public class GUI extends javax.swing.JFrame {
         }*/
         
         //Imprimiendo la matriz en consola y en la GUI
+        String formatted ;
         AdyacencyMatrixRepresentation.setTabSize​(3);
         for(int i=0; i < dimension; i++){
             for(int j=0; j < dimension; j++){
                 if(matrix[i][j] == FWAlgorithm.INF){
-                    AdyacencyMatrixRepresentation.append("INF" +"\t");
-                    System.out.print( "INF  "); 
+                    formatted = String.format("%5s","INF");
+                    AdyacencyMatrixRepresentation.append(formatted+"\t");
+                    System.out.print(formatted + " "); 
                 }else{
-                    AdyacencyMatrixRepresentation.append((int)matrix[i][j] + "\t");
-                   System.out.print(matrix[i][j] + "    ");
+                    formatted = String.format("%5s", (int)matrix[i][j]);
+                    AdyacencyMatrixRepresentation.append(formatted + "\t");
+                   System.out.print(formatted + "    ");
                 }
             }
             AdyacencyMatrixRepresentation.append("\n");
@@ -365,14 +368,17 @@ public class GUI extends javax.swing.JFrame {
         int dimension = vertices.size();
         FWAlgorithm FWA = new FWAlgorithm(dimension);
         double[][] solutionMatrix = FWA.Solve(matrix);
+        String formatted;
         
         WarshallRepresentation.setTabSize​(3);
         for(int i=0; i < dimension; i++){
             for(int j=0; j < dimension; j++){
                 if(solutionMatrix[i][j] == FWAlgorithm.INF){
-                   WarshallRepresentation.append("INF" + "\t");
+                    formatted = String.format("%5s", "INF");
+                    WarshallRepresentation.append(formatted + "\t");
                 }else{
-                   WarshallRepresentation.append((int)solutionMatrix[i][j] + "\t");
+                    formatted = String.format("%5s",(int)solutionMatrix[i][j]);
+                   WarshallRepresentation.append(formatted + "\t");
                 }
             }
             WarshallRepresentation.append("\n");
