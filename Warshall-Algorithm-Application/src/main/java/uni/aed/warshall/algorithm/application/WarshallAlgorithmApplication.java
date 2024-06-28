@@ -7,7 +7,7 @@ import static uni.aed.warshall.algorithm.application.FWAlgorithm.INF;
 
 /**
  *
- * @author sandro
+ * @author Sandro, Gabriel, Albert
  */
 public class WarshallAlgorithmApplication {
 
@@ -31,8 +31,24 @@ public class WarshallAlgorithmApplication {
                           {INF, INF, INF, 0, 4},
                           {INF, INF, INF, INF, 0}
                         };
-        FWA.PrintNodes(graph3);
-        FWA.Solve(graph3);
-        FWA.PrintRoutesMatrix();
+        double graph4[][] = {
+            {0,10,INF,30,100},
+            {INF,0,50,INF,INF},
+            {INF,INF,0,INF,10},
+            {INF,INF,20,0,60},
+            {INF,INF,INF,INF,0}
+        };
+        double[][] warshall = FWA.Solve(graph4);
+        
+        /*for(int i=0;i<5;i++){
+            for(int j=0; j<5;j++){
+                FWA.Routes(i,j);
+            }
+            System.out.println();
+        }*/
+        
+        FWA.Routes(2,3);
+
+        //FWA.PrintRoutesMatrix();
     }
 }

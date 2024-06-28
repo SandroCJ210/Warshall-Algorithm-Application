@@ -100,18 +100,12 @@ public class Edge<T extends Comparable<T>> implements Comparable<Edge<T>> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("[ ")
-                .append(from.value)//origin value
-                .append("(")
-                .append(from.weight)
-                .append(") ")
+        builder.append("[")
+                .append(from.cityName)//origin name
                 .append("]")//cierra origin value
                 .append(" -> ")
-               .append("[ ")
-                .append(to.value)//destino value
-                .append("(")
-                .append(to.weight)
-                .append(") ")
+               .append("[")
+                .append(to.cityName)//destino name
                 .append("]")//cierra destino value
                 .append(" = ")
                 .append(cost)//costo

@@ -9,26 +9,36 @@ import java.util.List;
 public class Vertex<T extends Comparable<T>> implements Comparable<Vertex<T>>  {
 
     protected T value = null;
+    protected String cityName;
     protected int weight = 0;
     protected List<Edge<T>> edges = new ArrayList<>();//lista de aristas del vertice o nodo
 
     //constructor con 1 parametro
-    public Vertex(T value) {
+    public Vertex(String city) {
+        this.cityName = city;
+    }    
+    //constructor con 2 parametro
+    public Vertex(T value,String city) {
         this.value = value;
+        this.cityName = city;
     }
-    //constructor con 2 parametros
-    public Vertex(T value, int weight) {
-        this(value);
+    //constructor con 3 parametros
+    public Vertex(T value, int weight,String city) {
+        this(value,city);
         this.weight = weight;
     }
     //constructor con 1 parametro de tipo vertice, traslada la data del parametro(valor,peso y aristas) al objeto actual
     public Vertex(Vertex<T> vertex) {
-        this(vertex.value, vertex.weight);
+        this(vertex.value, vertex.weight, vertex.cityName);
         this.edges.addAll(vertex.edges);
     }
 
     public T getValue() {
         return value;
+    }
+    
+    public String getCityName() {
+        return cityName;
     }
 
     public int getWeight() {
@@ -82,16 +92,20 @@ public class Vertex<T extends Comparable<T>> implements Comparable<Vertex<T>>  {
 
         final Vertex<T> v = (Vertex<T>) v1;
 
-        final boolean weightEquals = this.weight == v.weight;
+        /*final boolean weightEquals = this.weight == v.weight;
         if (!weightEquals)
-            return false;
+            return false;*/
 
         /*final boolean edgesSizeEquals = this.edges.size() == v.edges.size();
         if (!edgesSizeEquals)
             return false;*/
 
-        final boolean valuesEquals = this.value.equals(v.value);
+        /*final boolean valuesEquals = this.value.equals(v.value);
         if (!valuesEquals)
+            return false;*/
+        
+        final boolean cityNamesEquals = this.cityName.equals(v.cityName);
+        if (!cityNamesEquals)
             return false;
 
         /*final Iterator<Edge<T>> iter1 = this.edges.iterator();
@@ -147,13 +161,10 @@ public class Vertex<T extends Comparable<T>> implements Comparable<Vertex<T>>  {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Value=")
-                .append(value)
-                .append(" weight=")
-                .append(weight)
+        builder.append(cityName)
                 .append("\n");
-        for (Edge<T> e : edges)
-            builder.append("\t").append(e.toString());
+        /*for (Edge<T> e : edges)
+            builder.append("\t").append(e.toString());*/
         return builder.toString();
     }
     
