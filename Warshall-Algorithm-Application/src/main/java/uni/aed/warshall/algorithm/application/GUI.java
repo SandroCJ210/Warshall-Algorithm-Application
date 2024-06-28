@@ -298,9 +298,9 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(WarshallButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel14)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(PathsButton)
-                                .addGap(102, 102, 102))
+                                .addGap(108, 108, 108))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -491,6 +491,20 @@ public class GUI extends javax.swing.JFrame {
         double[][] routesMatrix = FWA.routesMatrix;
         double[][] warshallMatrix = FWA.warshallMatrix;
         
+        //String minimumRoutes = "";
+        for(int i=0; i < vertices.size(); i++){
+            for(int j=0; j < vertices.size(); j++){
+                Vertex<Integer> originVertex = SearchVertexByValue(i+1);
+                Vertex<Integer> destinyVertex = SearchVertexByValue(j+1);
+                PathsRepresentation.append(originVertex.getCityName() + " -> ");
+                //minimumRoutes += (originVertex.getCityName() + " -> ");
+                FWA.Routes(i,j,vertices,PathsRepresentation);
+                //minimumRoutes += (destinyVertex.getCityName() + " = " + FWA.warshallMatrix[i][j] + "\n");
+                PathsRepresentation.append(destinyVertex.getCityName() + " = " + (int)FWA.warshallMatrix[i][j] + "\n");
+
+            }
+            PathsRepresentation.append("\n");
+        }
         
         
     }//GEN-LAST:event_PathsButtonActionPerformed
@@ -512,7 +526,6 @@ public class GUI extends javax.swing.JFrame {
     private Vertex<Integer> SearchVertexByValue(Integer value){
         for(Vertex<Integer> v : vertices){
             if(v.getValue().equals(value)) return v;
-            
         }
         return null;
     }

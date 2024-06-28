@@ -4,6 +4,10 @@
  */
 package uni.aed.warshall.algorithm.application;
 
+import java.util.List;
+import javax.swing.JTextArea;
+import uni.aed.graphs.Vertex;
+
 /**
  *
  * @author Sandro, Gabriel, Albert
@@ -80,12 +84,30 @@ public class FWAlgorithm {
     
     public void Routes(int i, int j){
         int k = (int)routesMatrix[i][j];
-        if(k==1){
+        if(k-1==j){
             return;
         }
         Routes(i,k-1);
-        System.out.print(k + " ");
+        System.out.print(k + "  ");
         Routes(k-1,j);
     }
     
+    public void Routes(int i, int j, List<Vertex<Integer>> vertices, JTextArea textArea){
+        int k = (int)routesMatrix[i][j];
+        if(k-1==j){
+            return;
+        }
+        Routes(i,k-1,vertices,textArea);
+        Vertex<Integer> v = SearchVertexByValue(k,vertices);
+        System.out.print(v.getCityName() + "  ");
+        textArea.append(v.getCityName() + " -> ");
+        Routes(k-1,j,vertices,textArea);
+    }
+    
+    private Vertex<Integer> SearchVertexByValue(Integer value, List<Vertex<Integer>> vertices){
+        for(Vertex<Integer> v : vertices){
+            if(v.getValue().equals(value)) return v;
+        }
+        return null;
+    }
 }

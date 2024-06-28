@@ -12,7 +12,7 @@ import static uni.aed.warshall.algorithm.application.FWAlgorithm.INF;
 public class WarshallAlgorithmApplication {
 
     public static void main(String[] args) {
-        FWAlgorithm FWA = new FWAlgorithm(5);
+        FWAlgorithm FWA = new FWAlgorithm(4);
         
         //Grafos de prueba
         double graph1[][] = { {0, 5, INF, 10},
@@ -38,17 +38,26 @@ public class WarshallAlgorithmApplication {
             {INF,INF,20,0,60},
             {INF,INF,INF,INF,0}
         };
-        double[][] warshall = FWA.Solve(graph4);
         
-        /*for(int i=0;i<5;i++){
-            for(int j=0; j<5;j++){
+        double graph5[][] = {
+            {0,9,-4,INF},
+            {6,0,INF,2},
+            {INF,5,0,INF},
+            {INF,INF,1,0}
+        };
+        
+        double[][] warshall = FWA.Solve(graph5);
+        
+        for(int i=0;i<4;i++){
+            for(int j=0; j<4;j++){
+                System.out.print(i+1 + "  ");
                 FWA.Routes(i,j);
+                System.out.print(j+1 + "  ");
+                System.out.println();
             }
             System.out.println();
-        }*/
+        }
         
-        FWA.Routes(2,3);
-
         //FWA.PrintRoutesMatrix();
     }
 }
